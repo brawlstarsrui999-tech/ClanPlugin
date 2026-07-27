@@ -1,0 +1,2 @@
+# ClanPlugin
+ClanPlugin for TwixRPG
