@@ -324,6 +324,12 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
             msg(player, "&cНазвание базы не может быть длиннее 16 символов!");
             return;
         }
+        int maxHomes = plugin.getConfig().getInt("clan.max-homes", 5);
+        if (!clan.hasHome(homeName) && clan.getHomes().size() >= maxHomes) {
+            msg(player, "&cКлан может иметь максимум &e" + maxHomes + " &cточек дома!");
+            playSound(player, Sound.ENTITY_VILLAGER_NO);
+            return;
+        }
         clan.setHome(homeName, player.getLocation());
         plugin.getClanManager().saveImmediately();
         msg(player, "&aБаза &e" + homeName + " &aустановлена!");
@@ -598,6 +604,10 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
             msg(player, "&cВы не состоите в клане!");
             return;
         }
+        if (!clan.hasFeature("clan-tp")) {
+            msg(player, "&cФункция телепортации не куплена! &7Купите в /clan menu → Улучшения");
+            return;
+        }
 
         ClanTeleportManager tpManager = plugin.getClanTeleportManager();
         List<ClanTeleportManager.TeleportRequest> incoming = tpManager.getActiveRequestsTo(player.getUniqueId());
@@ -686,6 +696,10 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
         Clan clan = plugin.getClanManager().getPlayerClan(player.getUniqueId());
         if (clan == null) {
             msg(player, "&cВы не состоите в клане!");
+            return;
+        }
+        if (!clan.hasFeature("clan-tp")) {
+            msg(player, "&cФункция телепортации не куплена! &7Купите в /clan menu → Улучшения");
             return;
         }
 
@@ -814,13 +828,14 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
         player.sendMessage(c("  &e/clan accept &8— &7Принять приглашение"));
         player.sendMessage(c("  &e/clan leave &8— &7Покинуть клан"));
         player.sendMessage(c("  &e/clan pvp &8— &7Переключить PvP"));
-        player.sendMessage(c("  &e/clan sethome <имя> &8— &7Установить базу"));
+        player.sendMessage(c("  &e/clan sethome <имя> &8— &7Установить базу &6(макс. " + plugin.getConfig().getInt("clan.max-homes", 5) + ")"));
         player.sendMessage(c("  &e/clan home [имя] &8— &7Тп на базу"));
         player.sendMessage(c("  &e/clan money &8— &7Баланс казны"));
         player.sendMessage(c("  &e/clan invest <сумма> &8— &7Пополнить казну"));
         player.sendMessage(c("  &e/clan withdraw <сумма> &8— &7Снять с казны"));
         player.sendMessage(c("  &e/clan shop &8— &7Магазин клана"));
-        player.sendMessage(c("  &e/clan tp <игрок> &8— &7Запрос на Тп к соклановцу"));
+        player.sendMessage(c("  &e/clan tp <игрок> &8— &7Запрос на Тп к соклановцу &6("
+                + FORMAT.format(plugin.getConfig().getLong("upgrades.features.clan-tp", 25000)) + " монет)"));
         player.sendMessage(c("  &e/clan tpaccept [игрок] &8— &7Принять запрос на Тп"));
         player.sendMessage(c("  &e/clan tpdeny [игрок] &8— &7Отклонить запрос на Тп"));
         player.sendMessage(c("  &e/clan top &8— &7Топ кланов"));

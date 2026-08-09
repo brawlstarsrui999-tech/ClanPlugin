@@ -117,7 +117,7 @@ public class ClanMainMenu {
                     .name("&d&l🏠 Базы клана")
                     .lore(
                             "&8▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬",
-                            "&7Баз: &f" + clan.getHomes().size(),
+                            "&7Баз: &f" + clan.getHomes().size() + "/" + plugin.getConfig().getInt("clan.max-homes", 5),
                             "",
                             "&eНажмите для просмотра",
                             isOwner || clan.hasOfficerPerm(player.getUniqueId(), Clan.PERM_SETHOME)

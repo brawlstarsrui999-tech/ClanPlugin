@@ -54,7 +54,7 @@ public class ClanUpgradesMenu {
         // ===== FEATURE UPGRADES =====
         // Clan TP
         boolean hasClanTp = clan.hasFeature("clan-tp");
-        long tpCost = 150000;
+        long tpCost = plugin.getConfig().getLong("upgrades.features.clan-tp", 25000);
         inv.setItem(19, buildFeatureItem(clan, "clan-tp", "⚡ Телепортация /clan tp",
                 new String[]{
                         "&7Телепортируйтесь к любому",

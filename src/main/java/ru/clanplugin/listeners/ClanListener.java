@@ -375,7 +375,7 @@ public class ClanListener implements Listener {
         else if (name.contains("Магазин Ур. 4")) tryBuyShopLevel(player, clan, 4, 250000, canUpgradeShop);
 
             // Feature purchases
-        else if (name.contains("Телепортация")) tryBuyFeature(player, clan, "clan-tp", 150000, canUpgradeFeatures);
+        else if (name.contains("Телепортация")) tryBuyFeature(player, clan, "clan-tp", plugin.getConfig().getLong("upgrades.features.clan-tp", 25000), canUpgradeFeatures);
         else if (name.contains("Бафф Сила I") && !name.contains("II")) tryBuyFeature(player, clan, "buff-strength-1", 30000, canUpgradeFeatures);
         else if (name.contains("Бафф Сила II")) tryBuyFeature(player, clan, "buff-strength-2", 60000, canUpgradeFeatures);
         else if (name.contains("Бафф Скорость I") && !name.contains("II")) tryBuyFeature(player, clan, "buff-speed-1", 20000, canUpgradeFeatures);

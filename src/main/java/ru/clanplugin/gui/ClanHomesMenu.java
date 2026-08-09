@@ -27,8 +27,9 @@ public class ClanHomesMenu {
         boolean isOwner = clan.isOwner(player.getUniqueId());
         boolean canSetHome = isOwner || clan.hasOfficerPerm(player.getUniqueId(), Clan.PERM_SETHOME);
 
+        int maxHomes = plugin.getConfig().getInt("clan.max-homes", 5);
         inv.setItem(4, new ItemBuilder(Material.MAP)
-                .name("&d&lБазы клана &8[" + clan.getHomes().size() + "]")
+                .name("&d&lБазы клана &8[" + clan.getHomes().size() + "/" + maxHomes + "]")
                 .lore(
                         "&7Нажмите на базу для телепортации",
                         canSetHome ? "&7Установить: &e/clan sethome <название>" : "",
