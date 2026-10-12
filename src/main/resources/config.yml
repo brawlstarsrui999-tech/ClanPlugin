@@ -1,0 +1,41 @@
+# ClanPlugin Configuration
+plugin:
+  prefix: "&8[&6⚔ &bClan&6⚔&8] "
+  language: ru
+  # Логирование в папку logs/ внутри папки плагина.
+  # true  — создаёт logs/latest.log (журнал запуска) и logs/errors.log (все ошибки).
+  # false — логирование в файлы отключено (консоль продолжает работать).
+  logging-enabled: true
+
+# Clan settings
+clan:
+  # Стоимость создания клана (монеты, через Vault). 0 = бесплатно.
+  creation-cost: 10000
+  max-homes: 5
+
+# Shop settings
+shop:
+  update-interval: 86400  # seconds (24 hours)
+
+# Clan upgrade costs
+upgrades:
+  shop:
+    level-2: 60000
+    level-3: 130000
+    level-4: 250000
+  features:
+    clan-tp: 25000
+    buff-strength-1: 30000
+    buff-strength-2: 60000
+    buff-speed-1: 20000
+    buff-speed-2: 50000
+    buff-fire-resistance: 40000
+    buff-invisibility: 50000
+
+# Teleport settings
+teleport:
+  warmup: 3  # seconds before teleport
+
+# Database (SQLite)
+database:
+  file: clans.db
